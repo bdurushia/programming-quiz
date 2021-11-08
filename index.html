@@ -5,22 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programming Quiz</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
-    <seciton class="container">
+    <nav>
+        <div class="view-high-scores">
+            <h3>
+                <a href="high-scores.html">View High Scores</a>
+            </h3>
+        </div>
+        <div class="timer-container">
+            <h3>
+                Time Left: 
+            </h3>
+        </div>
+    </nav>
+
+    <section class="container">
         <div id="question-container" class="hide">
-            <div id="question">Question</div>
+            <div id="question">
+                <h1>What is Bootstrap?</h1>
+            </div>
             <div id="answer-buttons" class="btn-col">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
+                <button class="btn">1. A CSS framework built by Twitter that also includes some JS</button>
+                <button class="btn">2. The strap of a boot</button>
+                <button class="btn">3. A code structure format</button>
+                <button class="btn">4. A styling programming language</button>
             </div>
         </div>
-        <div class="controls">
-            <button id="start" class="start-btn btn">Start</button>
-            <button id="next-btn" class="nect-btn btn hide">Next</button>
+        <div class="q-result-container">
+            <h2>Wrong!</h2>
         </div>
     </section>
+
+<script src="assets/js/script.js"></script>
 </body>
 </html>
