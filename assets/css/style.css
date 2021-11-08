@@ -25,11 +25,15 @@ nav a {
     text-decoration: none;
 }
 
-.container {
+.container, #start-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#start-container p {
+    width: 30%;
 }
 
 #question-container {
