@@ -1,4 +1,4 @@
-// build question array
+// build question array, nest array and use booleans for which answers or true or false
 var questions = [
     {
         question: "What is Bootstrap?",
@@ -56,8 +56,7 @@ var questions = [
     }
 ];
 
-var startButton = document.getElementById("start-btn");
-
+// Create functions to target classes/id's to show or hide them in the browser
 var hide = function(elements) {
     var elements = elements.length ? elements : [elements];
     for (var i = 0; i < elements.length; i++) {
@@ -72,26 +71,38 @@ var show = function(elements) {
     }
 };
 
+//Global variables
+var startButtonEl = document.querySelector("#start-btn");
+var questionEl = document.querySelector("#question");
+var answerButtonsEl = document.querySelector("#answer-buttons");
+// Defining like this sets variable to undefined
+var currentQuestionIndex
 
-var setNextQuestion = function() {
+var nextQuestion = function() {
+    // Set questions
+    var setQuestionEl = document.createElement("h1");
+    setQuestionEl.textContent = questions[currentQuestionIndex], "question";
+    questionEl.appendChild(setQuestionEl);
     // Show Questions
     show(document.querySelector(".question-show"));
-    // Set questions
+
 };
 
 var selectAnswer = function() {
     
 };
 
+ // Start Game function
 var startGame = function() {
     console.log("started");
+    currentQuestionIndex = 0;
     hide(document.querySelector(".start-hide"));
     // call setNextQuestion Function
-    setNextQuestion();
+    nextQuestion();
 };
 
 
 // Hide Questions upon page refresh
 hide(document.querySelector(".question-hide"));
 
-startButton.addEventListener("click", startGame);
+startButtonEl.addEventListener("click", startGame);
