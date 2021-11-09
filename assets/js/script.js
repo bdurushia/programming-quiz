@@ -79,16 +79,35 @@ var answerButtonsEl = document.querySelector("#answer-buttons");
 var currentQuestionIndex
 
 var nextQuestion = function() {
-    // Set questions
+
+    // Set question
     var setQuestionEl = document.createElement("h1");
-    setQuestionEl.textContent = questions[currentQuestionIndex], "question";
+    setQuestionEl.textContent = questions[currentQuestionIndex].question;
     questionEl.appendChild(setQuestionEl);
-    // Show Questions
+
+    // Set Answers using a for loop to create each answer button
+    for (var i = 0; i < questions[currentQuestionIndex].answers.length; i++) {
+        var setAnswerButtonsEl = document.createElement("button");
+        setAnswerButtonsEl.className = "btn";
+        setAnswerButtonsEl.textContent = questions[currentQuestionIndex].answers[i].text;
+        answerButtonsEl.appendChild(setAnswerButtonsEl);
+    }
+
+    
+    // Show Question/Answers
     show(document.querySelector(".question-show"));
+    hide(document.querySelector(".q-result-container"));
+    
+    selectAnswer();
+    currentQuestionIndex++;
 
 };
 
 var selectAnswer = function() {
+
+    if (document.querySelector(".btn")) {
+        
+    }
     
 };
 
@@ -106,3 +125,4 @@ var startGame = function() {
 hide(document.querySelector(".question-hide"));
 
 startButtonEl.addEventListener("click", startGame);
+answerButtonsEl.addEventListener("click", selectAnswer);
