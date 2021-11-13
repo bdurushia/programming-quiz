@@ -103,10 +103,15 @@ var nextQuestion = function() {
 
 };
 
-var selectAnswer = function() {
+var selectAnswer = function(answers) {
+    console.log("selectAnswer starting");
 
-    if (document.querySelector(".btn")) {
-        
+    for (var i = 0; i < questions[currentQuestionIndex].answers.length; i++) {
+        if (questions[currentQuestionIndex].answers[i].correct === true) {
+            console.log("That is the correct answer");
+        } else {
+            console.log("That is incorrect.");
+        };
     }
     
 };
