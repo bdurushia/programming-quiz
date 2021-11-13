@@ -103,7 +103,7 @@ var nextQuestion = function() {
  
     // Show Question/Answers
     show(document.querySelector(".question-show"));
-    hide(document.querySelector(".result-container"));
+    // hide(document.querySelector(".result-container"));
     
     currentQuestionIndex++;
 
