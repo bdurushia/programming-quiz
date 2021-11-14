@@ -58,18 +58,18 @@ var questions = [
 
 // create variables for timers
 var timerEl = document.querySelector("#timer");
-var timeLeft = 60;
+var timeLeft = 30;
 // create timer function
 var countdown = function() {
     var timeInterval = setInterval(function () {
-        if (timeLeft > 1) {
+        if (timeLeft > 0) {
             timerEl.innerHTML = timeLeft + " secs";
             timeLeft--;
-        } else {
+        } else if (timeLeft === 0 || currentQuestionIndex >= 6) {
             timerEl.textContent = "0";
-            clearInterval(timeInterval);
             clearQuestions();
             showScore();
+            clearInterval(timeInterval);
             // Display Times Up! in result container
             var timesUp = document.querySelector(".result-container");
             timesUp.textContent = "Times Up!";
@@ -170,18 +170,37 @@ var startGame = function() {
     nextQuestion();
 };
 
+// Generate score form for user to submit initials
+var scoreForm = function(){
+    var formEl = document.createElement("form");
+    var labelEl = document.createElement("label");
+    var inputEl = document.createElement("input");
+    var submitButtonEl = document.createElement("button")
+
+    labelEl.className = "form";
+    labelEl.textContent = "Your initials: ";
+    inputEl.type = "text";
+    submitButtonEl.className = "btn";
+    submitButtonEl.textContent = "Submit";
+    //re-use question container for score form
+    questionEl.appendChild(formEl);
+    formEl.appendChild(labelEl);
+    labelEl.appendChild(inputEl);
+    formEl.appendChild(submitButtonEl);
+};
 // create showScore function
 var showScore = function() {
-    //re-use question container for score info
-    var scoreDivEl = document.querySelector("#question");
-    var setScoreEl = document.createElement("h1");
+    const userScore = timeLeft;
+    var setScoreEl = document.createElement("h3");
     setScoreEl.id = "user-score";
-    setScoreEl.textContent = "Your Score: " + timeLeft;
-    scoreDivEl.appendChild(setScoreEl);
+    setScoreEl.textContent = "Your final score is: " + userScore;
+    //re-use question container for score info
+    questionEl.appendChild(setScoreEl);
+    //call score form
+    scoreForm();
 };
 
 // Save User initials and score to localStorage
-
 
 
 // Hide Questions upon page refresh
