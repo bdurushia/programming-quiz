@@ -56,7 +56,25 @@ var questions = [
     }
 ];
 
-// Create functions to target classes/id's to show or hide them in the browser
+// create variables for timers
+var timerEl = document.querySelector("#timer");
+// create timer function
+var countdown = function() {
+    var timeLeft = 60;
+    var timeInterval = setInterval(function () {
+        if (timeLeft > 1) {
+            timerEl.innerHTML = timeLeft + " secs";
+            timeLeft--;
+        } else {
+            timerEl.textContent = " ";
+            clearInterval(timeInterval);
+        }
+
+    }, 1000);
+};
+
+
+// Create functions to target classes/id's to show or hide them in the DOM
 var hide = function(elements) {
     var elements = elements.length ? elements : [elements];
     for (var i = 0; i < elements.length; i++) {
@@ -80,7 +98,10 @@ var currentQuestionIndex
 
 var nextQuestion = function() {
     // conditional if current question index > questions.length
+
     // call score function
+
+    
     // wrap below in else statement vvvvvvvvvvvvvvvvvv
 
     // Set question
@@ -138,6 +159,7 @@ var selectAnswer = function(event) {
 
  // Start Game function
 var startGame = function() {
+    countdown();
     currentQuestionIndex = 0;
     hide(document.querySelector(".start-hide"));
     // call setNextQuestion Function
@@ -147,10 +169,10 @@ var startGame = function() {
 // create showScore function
 
 
+
 // Hide Questions upon page refresh
 hide(document.querySelector(".question-hide"));
 
 startButtonEl.addEventListener("click", startGame);
 answerButtonsEl.addEventListener("click", selectAnswer);
 
-// set interval timer function
