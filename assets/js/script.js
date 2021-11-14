@@ -58,18 +58,22 @@ var questions = [
 
 // create variables for timers
 var timerEl = document.querySelector("#timer");
+var timeLeft = 60;
 // create timer function
 var countdown = function() {
-    var timeLeft = 60;
     var timeInterval = setInterval(function () {
         if (timeLeft > 1) {
             timerEl.innerHTML = timeLeft + " secs";
             timeLeft--;
         } else {
-            timerEl.textContent = " ";
+            timerEl.textContent = "0";
             clearInterval(timeInterval);
+            clearQuestions();
+            showScore();
+            // Display Times Up! in result container
+            var timesUp = document.querySelector(".result-container");
+            timesUp.textContent = "Times Up!";
         }
-
     }, 1000);
 };
 
@@ -98,38 +102,36 @@ var currentQuestionIndex
 
 var nextQuestion = function() {
     // conditional if current question index > questions.length
-
     // call score function
-
+    if (currentQuestionIndex >= 6) {
+        showScore();
+    } else {
+        // Set question
+        var setQuestionEl = document.createElement("h1");
+        setQuestionEl.textContent = questions[currentQuestionIndex].question;
+        questionEl.appendChild(setQuestionEl);
     
-    // wrap below in else statement vvvvvvvvvvvvvvvvvv
-
-    // Set question
-    var setQuestionEl = document.createElement("h1");
-    setQuestionEl.textContent = questions[currentQuestionIndex].question;
-    questionEl.appendChild(setQuestionEl);
-
-    // Set Answers using a for loop to create each answer button
-    for (var i = 0; i < questions[currentQuestionIndex].answers.length; i++) {
-        var setAnswerButtonsEl = document.createElement("button");
-        setAnswerButtonsEl.className = "btn";
-        setAnswerButtonsEl.textContent = questions[currentQuestionIndex].answers[i].text;
-        if (questions[currentQuestionIndex].answers[i].correct === true) {
-            setAnswerButtonsEl.id = "true";
-        } else {
-            setAnswerButtonsEl.id = "false";
+        // Set Answers using a for loop to create each answer button
+        for (var i = 0; i < questions[currentQuestionIndex].answers.length; i++) {
+            var setAnswerButtonsEl = document.createElement("button");
+            setAnswerButtonsEl.className = "btn";
+            setAnswerButtonsEl.textContent = questions[currentQuestionIndex].answers[i].text;
+            if (questions[currentQuestionIndex].answers[i].correct === true) {
+                setAnswerButtonsEl.id = "true";
+            } else {
+                setAnswerButtonsEl.id = "false";
+            }
+            answerButtonsEl.appendChild(setAnswerButtonsEl);
         }
-        answerButtonsEl.appendChild(setAnswerButtonsEl);
+     
+        // Show Question/Answers
+        show(document.querySelector(".question-show"));
+        // hide(document.querySelector(".result-container"));
+        currentQuestionIndex++;
     }
- 
-    // Show Question/Answers
-    show(document.querySelector(".question-show"));
-    // hide(document.querySelector(".result-container"));
-    
-    currentQuestionIndex++;
-
 };
 
+// Create function to clear dom elements and change to next question
 var clearQuestions = function() {
     var quizSection = document.querySelector("#question");
     var answerSection = document.querySelector("#answer-buttons");
@@ -141,6 +143,7 @@ var clearQuestions = function() {
     }
 };
 
+// Listen for which answer is clicked on and determine whether it's correct or incorrect,
 var selectAnswer = function(event) {
     var answerSelected = event.target.id;
     if (answerSelected === "true") {
@@ -148,10 +151,11 @@ var selectAnswer = function(event) {
         correctAnswer.textContent = "Correct!";
         show(correctAnswer);
     } else {
+        // subtract time from timer for wrong answer
+        timeLeft = timeLeft - 7;
         var wrongAnswer = document.querySelector(".result-container");
         wrongAnswer.textContent = "Incorrect!";
         show(wrongAnswer);
-        // subtract time from timer
     }
     clearQuestions();
     nextQuestion();
@@ -167,6 +171,16 @@ var startGame = function() {
 };
 
 // create showScore function
+var showScore = function() {
+    //re-use question container for score info
+    var scoreDivEl = document.querySelector("#question");
+    var setScoreEl = document.createElement("h1");
+    setScoreEl.id = "user-score";
+    setScoreEl.textContent = "Your Score: " + timeLeft;
+    scoreDivEl.appendChild(setScoreEl);
+};
+
+// Save User initials and score to localStorage
 
 
 
